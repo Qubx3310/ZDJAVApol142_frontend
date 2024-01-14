@@ -1,0 +1,9 @@
+.custom-background{
+    background-color: darkgray !important;
+}
+
+.selected-nav{
+    color:white;
+    font-weight: bold;
+    font-style: italic;
+}

@@ -17,7 +17,8 @@
         <!-- Pętla do Angulara v.17 -->
         @for(student of students; track student.id)
         {
-        <tr>
+        <tr [ngClass]="{'table-warning':student.id == 1 || student.id == 2,
+            'table-danger': student.name == 'Jan Kowalski'}">
             <td>{{student.id}}</td>
             <td>{{student.name}}</td>
             <td>{{student.email}}</td>
@@ -41,3 +42,14 @@
         </div>
     }
 }
+
+<div *ngIf="isTableVisible;else template">
+    Tabela widoczna!
+</div>
+<div *ngIf="!isTableVisible">
+    Tabela niewidoczna!
+</div>
+
+<ng-template #template>
+    Wyświetlana lista
+</ng-template>
