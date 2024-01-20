@@ -1,2 +1,43 @@
-<p>add-student works!</p>
+<h4>Dodaj studenta</h4>
 
+<form (submit)="submit()">
+
+    <div>
+        <label class="form-label">Imię i nazwisko:</label>
+        <input [(ngModel)]="student.name" 
+        required
+        #name_input="ngModel"
+        name="fullName"
+        class="form-control" type="text" />
+        @if(name_input.invalid){
+            <p class="text-error">Pole jest wymagane</p>
+        }
+    </div>
+
+    <div>
+        <label class="form-label">Adres email:</label>
+        <input [(ngModel)]="student.email"
+        required
+        email
+        #email_input="ngModel"
+        name="email"
+        type="text" class="form-control" />
+        @if(email_input.hasError("required")){
+            <p class="text-error">Pole jest wymagane!</p>
+        }
+        @if(email_input.hasError("email")){
+            <p class="text-error">Pole musi zawierać email!</p>
+        }
+    </div>
+
+    <div class="mt-4">
+        <button class="btn btn-outline-success">Zapisz</button>
+        <button 
+        type="button"
+        (click)="setDefaultValues()"
+        class="btn btn-outline-primary">Wypełnij testowymi danymi</button>
+        <button 
+        type="reset"
+        class="btn btn-outline-secondary">Reset</button>
+    </div>
+</form>

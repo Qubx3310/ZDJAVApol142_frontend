@@ -6,6 +6,13 @@
     Zmień wyświetlanie</button>
 </div>
 
+<div class="col-6" style="margin-top:20px;margin-bottom:10px">
+    <input (keyup)="search(search_input.value)"
+    #search_input
+    class="form-control"
+    type="text" placeholder="Wyszukaj frazę"/>
+</div>
+
 @if(isTableVisible){
 <table class="table table-striped table-hover">
     <thead>
@@ -20,17 +27,17 @@
         <tr [ngClass]="{'table-warning':student.id == 1 || student.id == 2,
             'table-danger': student.name == 'Jan Kowalski'}">
             <td>{{student.id}}</td>
-            <td>{{student.name}}</td>
-            <td>{{student.email}}</td>
+            <td [innerHTML]="student.name | uppercase | highlightPhrase:search_input.value"></td>
+            <td [innerHTML]="student.email | lowercase | highlightPhrase:search_input.value"></td>
         </tr>
         }
 
         <!-- Pętla do Angulara o 2 do v.16 -->
-        <tr *ngFor="let student of students">
+        <!-- <tr *ngFor="let student of students">
             <td>{{student.id}}</td>
             <td>{{student.name}}</td>
             <td>{{student.email}}</td>
-        </tr>
+        </tr> -->
     </tbody>
 </table>
 } @else {
@@ -41,6 +48,12 @@
             <p>{{student.email}}</p>
         </div>
     }
+}
+
+@if(isSearchingError){
+    <div class="alert alert-danger">
+        Wystąpił błąd! Nie udało się pobrać danych!
+    </div>
 }
 
 <div *ngIf="isTableVisible;else template">
