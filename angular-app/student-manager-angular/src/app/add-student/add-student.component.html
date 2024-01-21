@@ -1,43 +1,44 @@
 <h4>Dodaj studenta</h4>
 
-<form (submit)="submit()">
+<form #form="ngForm" (submit)="submit(form)">
 
     <div>
         <label class="form-label">Imię i nazwisko:</label>
-        <input [(ngModel)]="student.name" 
-        required
-        #name_input="ngModel"
-        name="fullName"
-        class="form-control" type="text" />
+        <input [(ngModel)]="student.name" required #name_input="ngModel" name="fullName" class="form-control"
+            type="text" />
         @if(name_input.invalid){
-            <p class="text-error">Pole jest wymagane</p>
+        <p class="text-error">Pole jest wymagane</p>
         }
     </div>
 
     <div>
         <label class="form-label">Adres email:</label>
-        <input [(ngModel)]="student.email"
-        required
-        email
-        #email_input="ngModel"
-        name="email"
-        type="text" class="form-control" />
+        <input [(ngModel)]="student.email" required email #email_input="ngModel" name="email" type="text"
+            class="form-control" />
         @if(email_input.hasError("required")){
-            <p class="text-error">Pole jest wymagane!</p>
+        <p class="text-error">Pole jest wymagane!</p>
         }
         @if(email_input.hasError("email")){
-            <p class="text-error">Pole musi zawierać email!</p>
+        <p class="text-error">Pole musi zawierać email!</p>
         }
     </div>
 
-    <div class="mt-4">
-        <button class="btn btn-outline-success">Zapisz</button>
-        <button 
-        type="button"
-        (click)="setDefaultValues()"
-        class="btn btn-outline-primary">Wypełnij testowymi danymi</button>
-        <button 
-        type="reset"
-        class="btn btn-outline-secondary">Reset</button>
+    @if(isValidationError){
+    <div class="mt-2">
+        <p class="text-error">Wystąpił przynajmniej jeden błąd walidacji!</p>
     </div>
+    }
+
+    <div class="mt-4">
+        <button [disabled]="isSubmitting" class="btn btn-outline-success">Zapisz</button>
+        <button type="button" (click)="setDefaultValues()" class="btn btn-outline-primary">Wypełnij testowymi
+            danymi</button>
+        <button type="reset" class="btn btn-outline-secondary">Reset</button>
+    </div>
+
+    @if(isSuccessSubmitted){
+    <div class="alert alert-success mt-4">
+        Dodano studenta!
+    </div>
+    }
 </form>
