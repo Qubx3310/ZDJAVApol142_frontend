@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Student } from '../student';
 import { FormsModule, NgForm } from '@angular/forms';
 import { HttpStudentsService } from '../http-students.service';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-add-student',
@@ -41,7 +42,9 @@ export class AddStudentComponent {
 
     this.isSubmitting = true;
 
-    this.httpStudentService.post(this.student).subscribe(_=>{
+    this.httpStudentService.post(this.student)
+    .pipe(delay(2000))
+    .subscribe(_=>{
       this.isSuccessSubmitted = true;
 
       setTimeout(()=>{

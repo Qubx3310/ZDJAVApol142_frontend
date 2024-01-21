@@ -19,6 +19,7 @@
         <th>Id studenta</th>
         <th>Imię i nazwisko</th>
         <th>Adres email</th>
+        <th>Operacje</th>
     </thead>
     <tbody>
         <!-- Pętla do Angulara v.17 -->
@@ -29,6 +30,9 @@
             <td>{{student.id}}</td>
             <td [innerHTML]="student.name | uppercase | highlightPhrase:search_input.value"></td>
             <td [innerHTML]="student.email | lowercase | highlightPhrase:search_input.value"></td>
+            <td><button 
+                [routerLink]="'/edit-student/' + student.id"
+                class="btn btn-warning btn-sm">Edytuj</button></td>
         </tr>
         }
 

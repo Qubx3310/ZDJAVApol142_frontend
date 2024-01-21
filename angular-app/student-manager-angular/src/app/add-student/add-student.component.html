@@ -30,7 +30,11 @@
     }
 
     <div class="mt-4">
-        <button [disabled]="isSubmitting" class="btn btn-outline-success">Zapisz</button>
+        <button [disabled]="isSubmitting" class="btn btn-outline-success">
+            @if(isSubmitting){
+            <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+            }
+            Zapisz</button>
         <button type="button" (click)="setDefaultValues()" class="btn btn-outline-primary">Wypełnij testowymi
             danymi</button>
         <button type="reset" class="btn btn-outline-secondary">Reset</button>

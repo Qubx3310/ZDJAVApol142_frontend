@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { HttpStudentsService } from '../http-students.service';
 import { ReplaceValuePipe } from '../replace-value.pipe';
 import { HighlightPhrasePipe } from '../highlight-phrase.pipe';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-student-list',
   standalone: true,
-  imports: [CommonModule, ReplaceValuePipe, HighlightPhrasePipe],
+  imports: [CommonModule, ReplaceValuePipe, HighlightPhrasePipe, RouterModule],
   templateUrl: './student-list.component.html',
   styleUrl: './student-list.component.css'
 })
