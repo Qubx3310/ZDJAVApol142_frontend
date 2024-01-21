@@ -36,7 +36,11 @@
             <td>{{student.id}}</td>
             <td [innerHTML]="student.name | uppercase | highlightPhrase:search_input.value"></td>
             <td [innerHTML]="student.email | lowercase | highlightPhrase:search_input.value"></td>
-            <td><button 
+            <td>
+                <button class="btn btn-info btn-sm"
+                [routerLink]="'/details-student/' + student.id"
+                >Szczegóły</button>
+                <button 
                 [routerLink]="'/edit-student/' + student.id"
                 class="btn btn-warning btn-sm">Edytuj</button>
                 <button class="btn btn-danger btn-sm" (click)="delete(student.id)">Usuń</button>

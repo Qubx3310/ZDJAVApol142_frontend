@@ -1,0 +1,11 @@
+<app-child-header-details [studentId]="student.id"></app-child-header-details>
+<app-child-content-details [name]="student.name" 
+[isEmailShown]="true"
+[email]="student.email"></app-child-content-details>
+
+<app-child-buttons-details
+(btn1EventEmitter)="goEditStudent()"
+(btn2EventEmitter)="goBack()"
+[btn1Content]="'Idź do edycji'"
+[btn2Content]="'Powrót'"
+></app-child-buttons-details>
