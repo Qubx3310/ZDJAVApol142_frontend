@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Student } from '../student';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
+import { HttpStudentsService } from '../http-students.service';
 
 @Component({
   selector: 'app-add-student',
@@ -11,13 +12,46 @@ import { FormsModule } from '@angular/forms';
 })
 export class AddStudentComponent {
   student : Student = new Student(0,"","");
+  isSubmitting : boolean = false;
+  isValidationError = false;
+  isSuccessSubmitted = false;
+
+  constructor(private httpStudentService : HttpStudentsService){
+
+  }
 
   setDefaultValues(){
     this.student.name = "Adam Nowak";
-    this.student.email = "nowak@gmail.com"
+    this.student.email = "nowak@gmail.com";
+
+    this.resetState();
   }
 
-  submit(){
-    console.log(this.student);
+  resetState(){
+    this.isValidationError = false;
+  }
+
+  submit(form : NgForm){
+    this.resetState();
+
+    if (form.invalid){
+      this.isValidationError = true;
+      return;
+    }
+
+    this.isSubmitting = true;
+
+    this.httpStudentService.post(this.student).subscribe(_=>{
+      this.isSuccessSubmitted = true;
+
+      setTimeout(()=>{
+        this.isSuccessSubmitted = false;
+      },2000);
+
+      this.isSubmitting = false;
+      this.student.name = "";
+      this.student.email = "";
+    });
+    
   }
 }
