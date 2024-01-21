@@ -13,6 +13,12 @@
     type="text" placeholder="Wyszukaj frazę"/>
 </div>
 
+@if(isStudentRemoved){
+<div class="alert alert-danger mt-4">
+    Usunięto studenta o id {{removedId}}
+</div>
+}
+
 @if(isTableVisible){
 <table class="table table-striped table-hover">
     <thead>
@@ -32,7 +38,9 @@
             <td [innerHTML]="student.email | lowercase | highlightPhrase:search_input.value"></td>
             <td><button 
                 [routerLink]="'/edit-student/' + student.id"
-                class="btn btn-warning btn-sm">Edytuj</button></td>
+                class="btn btn-warning btn-sm">Edytuj</button>
+                <button class="btn btn-danger btn-sm" (click)="delete(student.id)">Usuń</button>
+            </td>
         </tr>
         }
 

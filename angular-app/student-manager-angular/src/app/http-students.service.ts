@@ -23,4 +23,12 @@ export class HttpStudentsService {
   post(student : Student){
     return this.httpClient.post(this.url,student);
   }
+
+  put(student : Student){
+    return this.httpClient.put(this.url + "/" + student.id, student);
+  }
+
+  delete(id : number){
+    return this.httpClient.delete(this.url + "/" + id);
+  }
 }

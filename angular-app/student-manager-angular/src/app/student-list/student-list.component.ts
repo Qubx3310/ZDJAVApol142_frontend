@@ -18,6 +18,8 @@ export class StudentListComponent {
   students : any[] =[];
   copyStudents : any[] = [];
   isSearchingError = false;
+  isStudentRemoved = false;
+  removedId : number = 0;
 
   constructor(private httpStudentService : HttpStudentsService){
     
@@ -45,5 +47,15 @@ export class StudentListComponent {
   search(phrase : string){
     this.students = this.copyStudents.filter(x=>x.name.toLowerCase().includes(phrase.toLowerCase()) || 
       x.email.toLowerCase().includes(phrase.toLowerCase()));
+  }
+
+  delete(id : number){
+
+    this.httpStudentService.delete(id).subscribe(()=>{
+      this.isStudentRemoved = true;
+      this.removedId = id;
+      this.students = this.students.filter(x=>x.id !== id);
+      this.copyStudents = this.copyStudents.filter(x=> x.id !== id);
+    });
   }
 }

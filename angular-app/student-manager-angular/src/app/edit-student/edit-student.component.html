@@ -1,1 +1,52 @@
-<p>edit-student works!</p>
+<h4>Edytuj studenta o id {{student.id}}</h4>
+
+<form #form="ngForm" (submit)="submit(form)">
+
+    <div>
+        <label class="form-label">Imię i nazwisko:</label>
+        <input [(ngModel)]="student.name" required #name_input="ngModel" name="fullName" class="form-control"
+            type="text" />
+        @if(name_input.invalid){
+        <p class="text-error">Pole jest wymagane</p>
+        }
+    </div>
+
+    <div>
+        <label class="form-label">Adres email:</label>
+        <input [(ngModel)]="student.email" required email #email_input="ngModel" name="email" type="text"
+            class="form-control" />
+        @if(email_input.hasError("required")){
+        <p class="text-error">Pole jest wymagane!</p>
+        }
+        @if(email_input.hasError("email")){
+        <p class="text-error">Pole musi zawierać email!</p>
+        }
+    </div>
+
+    @if(isErrorValidation){
+        <div class="mt-2">
+            <p class="text-error">Wystąpił przynajmniej jeden błąd walidacji!</p>
+        </div>
+    }
+
+    <div class="mt-4">
+        <button class="btn btn-outline-success" [disabled]="isSubmitting">
+            Zapisz</button>
+        <button type="button" class="btn btn-info" (click)="setInitialValues()">Ustaw wartości początkowe</button>
+        <button type="button" class="btn btn-secondary" (click)="getBack()">Powrót do poprzedniej strony</button>
+        <button type="button" class="btn btn-light" [routerLink]="'/students'">Powrót do listy</button>
+    </div>
+
+    @if(isUpdateSucccessful){
+        <div class="alert alert-success mt-4">
+            Dokonano edycji studenta!
+        </div>
+    }
+
+    @if (isUpdateError){
+        <div class="alert alert-danger mt-4">
+            Wystąpił błąd! Nie udało się edytować studenta!
+        </div>
+    }
+
+</form>
