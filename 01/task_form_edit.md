@@ -1,6 +1,6 @@
 # Formularz edycji
 
-1. Dokończ formularz edycji na podstawie formularzu dodawania nowego studenta.
+1. Dokończ formularz edycji na podstawie formularzu dodawania nowego studenta wraz z niezbędną walidacją.
 
 2. W procesie zatwierdzania formularza `submit` do API powinna zostać wysłana metoda http PUT wraz ze zmienionym stanem obiektu.
 
